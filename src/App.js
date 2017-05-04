@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// import CSSTransitionGroup from 'react-transition-group'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import styled from 'styled-components'
 import artworks from './artworks.json'
 
@@ -30,7 +32,27 @@ const Button = styled.a`
   margin: 1em;
 `
 
-const Modal = () => <h1>MODAL!</h1>
+class Modal extends React.Component {
+  // constructor () {
+  //   super()
+  // }
+
+  componentWillEnter () {
+    console.log('entering')
+  }
+
+  componentWillLeave () {
+    console.log('leaving')
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>MODAL?</h1>
+      </div>
+    )
+  }
+}
 
 class App extends Component {
   constructor () {
@@ -39,6 +61,7 @@ class App extends Component {
       isModal: false
     }
     this.toggle = this.toggle.bind(this)
+    this.maybeRenderModal = this.maybeRenderModal.bind(this)
   }
 
   toggle () {
@@ -47,11 +70,25 @@ class App extends Component {
     })
   } 
 
+  maybeRenderModal () {
+    const { isModal } = this.state
+    return (
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
+
+        { isModal && <Modal /> }
+
+      </ReactCSSTransitionGroup>
+    )
+  }
+
   render() {
     return (
       <div>
         <Button href="#" onClick={this.toggle}>modal</Button>      
-        { this.state.isModal && <Modal />}
+        {this.maybeRenderModal()}
         <Grid>
           {artworks.map(w => <StyledArtwork key={w.id} {...w} />)}
         </Grid>
