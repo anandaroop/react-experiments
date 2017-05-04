@@ -33,9 +33,10 @@ const Button = styled.a`
 `
 
 class Modal extends React.Component {
-  // constructor () {
-  //   super()
-  // }
+  constructor () {
+    super()
+    this.handleDismiss = this.handleDismiss.bind(this)
+  }
 
   componentWillEnter () {
     console.log('entering')
@@ -45,10 +46,18 @@ class Modal extends React.Component {
     console.log('leaving')
   }
 
+  handleDismiss () {
+    this.props.onDismiss()
+  }
+
   render () {
     return (
-      <div>
-        <h1>MODAL?</h1>
+      <div className="modal">
+        <h1>Modal</h1>
+        <a href="#" onClick={this.handleDismiss}>cancel</a>
+        <div>
+          {this.props.children}
+        </div>
       </div>
     )
   }
@@ -74,11 +83,17 @@ class App extends Component {
     const { isModal } = this.state
     return (
       <ReactCSSTransitionGroup
-        transitionName="example"
+        transitionName="modal"
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
 
-        { isModal && <Modal /> }
+        { isModal && 
+          <Modal onDismiss={(e) => this.toggle()}> 
+            <p>
+              heyyyyyy
+            </p>
+          </Modal>
+        }
 
       </ReactCSSTransitionGroup>
     )
