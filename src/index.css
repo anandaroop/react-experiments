@@ -3,33 +3,3 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
-.modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: pink;
-}
-.modal-enter {
-  opacity: 0;
-  transform: scale(0.95);
-  transition: all 125ms ease-out;
-}
-
-.modal-enter-active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.modal-leave {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 125ms ease-in;
-}
-
-.modal-leave-active {
-  opacity: 0;
-  transform: scale(0.95);
-}

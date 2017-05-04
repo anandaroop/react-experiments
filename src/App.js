@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-// import CSSTransitionGroup from 'react-transition-group'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import styled from 'styled-components'
 import artworks from './artworks.json'
+import Modal from './Modal'
 
 const Artwork = ({className, title}) => (
   <div className={className}>
@@ -32,37 +31,6 @@ const Button = styled.a`
   margin: 1em;
 `
 
-class Modal extends React.Component {
-  constructor () {
-    super()
-    this.handleDismiss = this.handleDismiss.bind(this)
-  }
-
-  componentWillEnter () {
-    console.log('entering')
-  }
-
-  componentWillLeave () {
-    console.log('leaving')
-  }
-
-  handleDismiss () {
-    this.props.onDismiss()
-  }
-
-  render () {
-    return (
-      <div className="modal">
-        <h1>Modal</h1>
-        <a href="#" onClick={this.handleDismiss}>cancel</a>
-        <div>
-          {this.props.children}
-        </div>
-      </div>
-    )
-  }
-}
-
 class App extends Component {
   constructor () {
     super()
@@ -70,40 +38,32 @@ class App extends Component {
       isModal: false
     }
     this.toggle = this.toggle.bind(this)
-    this.maybeRenderModal = this.maybeRenderModal.bind(this)
   }
 
   toggle () {
     this.setState({
       isModal: !this.state.isModal
     })
-  } 
-
-  maybeRenderModal () {
-    const { isModal } = this.state
-    return (
-      <ReactCSSTransitionGroup
-        transitionName="modal"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
-
-        { isModal && 
-          <Modal onDismiss={(e) => this.toggle()}> 
-            <p>
-              heyyyyyy
-            </p>
-          </Modal>
-        }
-
-      </ReactCSSTransitionGroup>
-    )
   }
 
   render() {
     return (
       <div>
         <Button href="#" onClick={this.toggle}>modal</Button>      
-        {this.maybeRenderModal()}
+
+        <Modal
+          isOpen={this.state.isModal}
+          onDismiss={(e) => this.toggle()}> 
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </Modal>
+
         <Grid>
           {artworks.map(w => <StyledArtwork key={w.id} {...w} />)}
         </Grid>
