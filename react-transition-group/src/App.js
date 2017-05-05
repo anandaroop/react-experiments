@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import artworks from './artworks.json'
-import Modal from './Modal'
+// import Modal from './Modal'
+import Modal from './StaysMountedModal'
 
 const Artwork = ({ className, title }) => (
   <div className={className}>
@@ -17,11 +18,16 @@ const StyledArtwork = styled(Artwork)`
   color: white;
   padding: 0;
   h1 {
+    opacity: 0;
     margin: 0;
     font-size: 1.2em;
     font-weight: 100;
+    transition: opacity 0.15s;
   }
   background: url(${props => props.images[0].image_urls.square});
+  &:hover h1 {
+    opacity: 1;
+  }
 `
 
 const Grid = styled.div`
