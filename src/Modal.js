@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-// import CSSTransitionGroup from 'react-transition-group'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 class Modal extends React.Component {
   constructor () {
@@ -32,7 +31,7 @@ class Modal extends React.Component {
     const { isOpen } = this.props
     return (
         <ModalTransition>
-          <ReactCSSTransitionGroup
+          <CSSTransitionGroup
             transitionName="modal"
             transitionEnterTimeout={125}
             transitionLeaveTimeout={125}>
@@ -47,7 +46,7 @@ class Modal extends React.Component {
               </ModalContent>
             }
 
-          </ReactCSSTransitionGroup>
+          </CSSTransitionGroup>
         </ModalTransition>
     )
   }
