@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import artworks from './artworks.json'
 import Modal from './Modal'
 
-const Artwork = ({className, title}) => (
+const Artwork = ({ className, title }) => (
   <div className={className}>
     <h1>{title}</h1>
   </div>
@@ -14,9 +14,14 @@ const StyledArtwork = styled(Artwork)`
   height: 200px;
   margin: 1em;
   border: solid 1px gray;
+  color: white;
+  padding: 0;
   h1 {
+    margin: 0;
     font-size: 1.2em;
+    font-weight: 100;
   }
+  background: url(${props => props.images[0].image_urls.square});
 `
 
 const Grid = styled.div`
@@ -55,12 +60,7 @@ class App extends Component {
           isOpen={this.state.isModal}
           onDismiss={(e) => this.toggle()}> 
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
         </Modal>
 

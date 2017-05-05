@@ -1,30 +1,29 @@
 import React from 'react';
 import styled from 'styled-components'
-// import CSSTransitionGroup from 'react-transition-group'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 class Modal extends React.Component {
   constructor () {
     super()
-    this.handleDismiss = this.handleDismiss.bind(this)
+    this.dismiss = this.dismiss.bind(this)
     this.handleKeyup = this.handleKeyup.bind(this)
   }
 
-  componentDidMount () {
-    window.addEventListener('keyup', this.handleKeyup)
+  componentWillReceiveProps ({isOpen}) {
+    if (isOpen) {
+      window.addEventListener('keyup', this.handleKeyup)
+    } else {
+      window.removeEventListener('keyup', this.handleKeyup)
+    }
   }
 
-  componentWillUnmount () {
-    window.removeEventListener('keyup', this.handleKeyup)
-  }
-
-  handleDismiss () {
+  dismiss () {
     this.props.onDismiss()
   }
 
   handleKeyup (e) {
     if (e.keyCode === 27) {
-      this.handleDismiss()
+      this.dismiss()
     }
   }
 
@@ -32,19 +31,22 @@ class Modal extends React.Component {
     const { isOpen } = this.props
     return (
         <ModalTransition>
-          <ReactCSSTransitionGroup
+          <CSSTransitionGroup
             transitionName="modal"
             transitionEnterTimeout={125}
             transitionLeaveTimeout={125}>
-            { isOpen && <ModalContent>
-              <h1>Modal</h1>
-              <a href="#" onClick={this.handleDismiss}>cancel</a>
-              <div>
-                {this.props.children}
-              </div>
-            </ModalContent>
+
+            { isOpen &&
+              <ModalContent>
+                <h1>Modal</h1>
+                  <a href="#" onClick={this.dismiss}>cancel</a>
+                <div>
+                  {this.props.children}
+                </div>
+              </ModalContent>
             }
-          </ReactCSSTransitionGroup>
+
+          </CSSTransitionGroup>
         </ModalTransition>
     )
   }
@@ -56,7 +58,11 @@ const ModalContent = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: pink;
+  margin: 0;
+  padding: 1em;
+  background: hsla(0, 0%, 100%, 0.9);
+  box-shadow: 0 0 20px hsla(0, 0%, 50%, 0.5);
+  border: solid 1px #ccc;
 `
 
 const ModalTransition = styled.div`
