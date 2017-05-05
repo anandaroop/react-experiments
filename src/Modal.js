@@ -36,14 +36,17 @@ class Modal extends React.Component {
             transitionName="modal"
             transitionEnterTimeout={125}
             transitionLeaveTimeout={125}>
-            { isOpen && <ModalContent>
-              <h1>Modal</h1>
-              <a href="#" onClick={this.handleDismiss}>cancel</a>
-              <div>
-                {this.props.children}
-              </div>
-            </ModalContent>
+
+            { isOpen &&
+              <ModalContent>
+                <h1>Modal</h1>
+                  <a href="#" onClick={this.handleDismiss}>cancel</a>
+                <div>
+                  {this.props.children}
+                </div>
+              </ModalContent>
             }
+
           </ReactCSSTransitionGroup>
         </ModalTransition>
     )
@@ -56,7 +59,11 @@ const ModalContent = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: pink;
+  margin: 0;
+  padding: 1em;
+  background: hsla(0, 0%, 100%, 0.9);
+  box-shadow: 0 0 20px hsla(0, 0%, 50%, 0.5);
+  border: solid 1px #ccc;
 `
 
 const ModalTransition = styled.div`
