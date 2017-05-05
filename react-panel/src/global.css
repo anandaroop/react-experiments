@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 0.875rem;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin: 1em 0;
+}
