@@ -6,25 +6,25 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 class Modal extends React.Component {
   constructor () {
     super()
-    this.handleDismiss = this.handleDismiss.bind(this)
+    this.dismiss = this.dismiss.bind(this)
     this.handleKeyup = this.handleKeyup.bind(this)
   }
 
-  componentDidMount () {
-    window.addEventListener('keyup', this.handleKeyup)
+  componentWillReceiveProps ({isOpen}) {
+    if (isOpen) {
+      window.addEventListener('keyup', this.handleKeyup)
+    } else {
+      window.removeEventListener('keyup', this.handleKeyup)
+    }
   }
 
-  componentWillUnmount () {
-    window.removeEventListener('keyup', this.handleKeyup)
-  }
-
-  handleDismiss () {
+  dismiss () {
     this.props.onDismiss()
   }
 
   handleKeyup (e) {
     if (e.keyCode === 27) {
-      this.handleDismiss()
+      this.dismiss()
     }
   }
 
@@ -40,7 +40,7 @@ class Modal extends React.Component {
             { isOpen &&
               <ModalContent>
                 <h1>Modal</h1>
-                  <a href="#" onClick={this.handleDismiss}>cancel</a>
+                  <a href="#" onClick={this.dismiss}>cancel</a>
                 <div>
                   {this.props.children}
                 </div>
