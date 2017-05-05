@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import artworks from './artworks.json'
 import Modal from './Modal'
 
-const Artwork = ({className, title}) => (
+const Artwork = ({ className, title }) => (
   <div className={className}>
     <h1>{title}</h1>
   </div>
@@ -14,9 +14,14 @@ const StyledArtwork = styled(Artwork)`
   height: 200px;
   margin: 1em;
   border: solid 1px gray;
+  color: white;
+  padding: 0;
   h1 {
+    margin: 0;
     font-size: 1.2em;
+    font-weight: 100;
   }
+  background: url(${props => props.images[0].image_urls.square});
 `
 
 const Grid = styled.div`
