@@ -5,6 +5,7 @@
   "dependencies": {
     "leaflet": "^1.1.0",
     "leaflet-providers": "^1.1.17",
+    "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
