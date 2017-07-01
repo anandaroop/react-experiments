@@ -14,6 +14,9 @@ class App extends Component {
             top: 0,
             bottom: 0
           }}
+          lat={40.688425}
+          lng={-73.966375}
+          zoom={16}
         />
       </div>
     )

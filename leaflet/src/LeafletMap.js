@@ -2,12 +2,34 @@ import React from 'react'
 import L from 'leaflet'
 import 'leaflet-providers'
 
-const playground = [40.688425, -73.966375]
-
 class LeafletMap extends React.Component {
+  constructor(props) {
+    super(props)
+    const { lat, lng, zoom } = this.props
+    this.state = {
+      lat,
+      lng,
+      zoom
+    }
+    this.updateStateFromMap = this.updateStateFromMap.bind(this)
+  }
+
   componentDidMount() {
-    this.map = L.map(this.props.id).setView(playground, 15)
+    // instantiate
+    const { lat, lng, zoom } = this.state
+    this.map = L.map(this.props.id).setView([lat, lng], zoom)
     L.tileLayer.provider('CartoDB.Positron').addTo(this.map)
+
+    // events
+    this.map.on('moveend', this.updateStateFromMap)
+  }
+
+  updateStateFromMap() {
+    this.setState({
+      lat: this.map.getCenter().lat,
+      lng: this.map.getCenter().lng,
+      zoom: this.map.getZoom()
+    })
   }
 
   render() {
