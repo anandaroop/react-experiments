@@ -1,15 +1,21 @@
 import React from 'react'
 import { storiesOf, action, linkTo } from '@kadira/storybook'
+import './global.css'
+import './volt.css'
+
 import UncontrolledForm from '../components/UncontrolledForm'
 
-storiesOf('UncontrolledForm', module).add(null, () =>
+storiesOf('UncontrolledForm', module).add('', () =>
   <div>
-    <p>An uncontrolled, unstyled, dumb little form component</p>
+    <p>An uncontrolled, dumb little form component</p>
+
     <UncontrolledForm
       onSubmit={e => {
-        alert('submitted!')
-        return false
+        e.preventDefault()
+        window._output.innerText = 'Form was submitted.'
       }}
     />
+
+    <p ref={el => (window._output = el)} />
   </div>
 )

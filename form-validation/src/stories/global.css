@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+fieldset {
+  border: none;
+}
+
+label {
+  display: inline-block;
+  width: 20%;
+}
+
+input[type~="text"] {
+  display: inline-block;
+  width: 80%;
+}
