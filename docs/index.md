@@ -1,3 +1,5 @@
-# Hello
+# React Experiments
 
-Reprehenderit consectetur fugiat id commodo ex cupidatat adipisicing pariatur eu nisi et.
+A mother repo for various experiments with React, mostly created with create-react-app, sometimes with included storybooks.
+
+[Go to all storybooks](storybooks)
