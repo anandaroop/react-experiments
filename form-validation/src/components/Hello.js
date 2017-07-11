@@ -1,5 +1,8 @@
 import React from 'react'
+import styled from 'styled-components'
 
-const Hello = () => <h1>Hello, React + Storybooks</h1>
+const Hello = () => <Heading>Hello</Heading>
+
+const Heading = styled.h1`color: gray;`
 
 export default Hello
