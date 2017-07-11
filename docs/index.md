@@ -1,7 +1,8 @@
 # React Experiments
 
-A mother repo for various experiments with React, mostly created with create-react-app
+This is simply a mother repo for various experiments with React, mostly created with **Create React App**, often including **Storybooks**.
 
 ## Storybooks
 
-[Go to all storybooks](storybooks)
+* [Form validation](storybooks/form-validation/)
+
