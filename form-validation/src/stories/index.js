@@ -10,12 +10,13 @@ storiesOf('UncontrolledForm', module).add('', () =>
     <p>An uncontrolled, dumb little form component</p>
 
     <UncontrolledForm
-      onSubmit={e => {
-        e.preventDefault()
-        window._output.innerText = 'Form was submitted.'
+      onSubmit={values => {
+        window._output.innerHTML = JSON.stringify(values)
       }}
     />
 
-    <p ref={el => (window._output = el)} />
+    <p ref={el => (window._output = el)}>
+      <span style={{ color: '#ccc' }}>Submit form to see values here</span>
+    </p>
   </div>
 )
