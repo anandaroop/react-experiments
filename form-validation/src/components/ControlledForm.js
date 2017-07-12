@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
+const setStateFor = (component, key) => e => component.setState({ [key]: e.target.value })
+
 class ControlledForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: null,
-      medium: null
+      title: '',
+      medium: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -25,7 +27,7 @@ class ControlledForm extends Component {
             type="text"
             name="title"
             value={this.state.title}
-            onChange={e => this.setState({ title: e.target.value })}
+            onChange={setStateFor(this, 'title')}
           />
         </fieldset>
 
@@ -36,7 +38,7 @@ class ControlledForm extends Component {
             type="text"
             name="medium"
             value={this.state.medium}
-            onChange={e => this.setState({ medium: e.target.value })}
+            onChange={setStateFor(this, 'medium')}
           />
         </fieldset>
 
