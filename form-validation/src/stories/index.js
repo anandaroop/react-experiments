@@ -6,11 +6,11 @@ import './volt.css'
 import UncontrolledForm from '../components/UncontrolledForm'
 import ControlledForm from '../components/ControlledForm'
 
-storiesOf('UncontrolledForm', module).add('default', () =>
+storiesOf('ControlledForm', module).add('default', () =>
   <div>
-    <p>An uncontrolled, dumb little form component</p>
+    <p>A controlled form</p>
 
-    <UncontrolledForm
+    <ControlledForm
       onSubmit={values => {
         window._output.innerHTML = JSON.stringify(values)
       }}
@@ -22,11 +22,11 @@ storiesOf('UncontrolledForm', module).add('default', () =>
   </div>
 )
 
-storiesOf('ControlledForm', module).add('default', () =>
+storiesOf('UncontrolledForm', module).add('default', () =>
   <div>
-    <p>A controlled form</p>
+    <p>An uncontrolled, dumb little form component</p>
 
-    <ControlledForm
+    <UncontrolledForm
       onSubmit={values => {
         window._output.innerHTML = JSON.stringify(values)
       }}
