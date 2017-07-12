@@ -6,7 +6,7 @@ import './volt.css'
 import UncontrolledForm from '../components/UncontrolledForm'
 import ControlledForm from '../components/ControlledForm'
 
-storiesOf('UncontrolledForm', module).add('', () =>
+storiesOf('UncontrolledForm', module).add('default', () =>
   <div>
     <p>An uncontrolled, dumb little form component</p>
 
@@ -22,7 +22,7 @@ storiesOf('UncontrolledForm', module).add('', () =>
   </div>
 )
 
-storiesOf('ControlledForm', module).add('', () =>
+storiesOf('ControlledForm', module).add('default', () =>
   <div>
     <p>A controlled form</p>
 
