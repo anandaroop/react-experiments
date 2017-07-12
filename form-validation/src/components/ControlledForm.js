@@ -14,7 +14,10 @@ class ControlledForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.onSubmit(this.state)
+    const payload = {
+      artwork: this.state
+    }
+    this.props.onSubmit(payload)
   }
 
   render() {
