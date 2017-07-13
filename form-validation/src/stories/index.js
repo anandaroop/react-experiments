@@ -5,6 +5,37 @@ import './volt.css'
 
 import UncontrolledForm from '../components/UncontrolledForm'
 import ControlledForm from '../components/ControlledForm'
+import ValidatingForm from '../components/ValidatingForm'
+
+// helpers to display the results of form submission
+const showFeedback = message => (window._FormSubmissionFeedback.innerHTML = message)
+const FormSubmissionFeedback = () =>
+  <p ref={el => (window._FormSubmissionFeedback = el)}>
+    <span style={{ color: '#ccc' }}>Submit form to see values here</span>
+  </p>
+
+// the stories
+storiesOf('ValidatingForm', module).add('default', () =>
+  <div>
+    <p>A form validated with Formik</p>
+
+    <ValidatingForm
+      onSubmit={payload => {
+        showFeedback(JSON.stringify(payload))
+      }}
+      user={{
+        id: '123',
+        email: 'foo@barcom',
+        social: {
+          facebook: '',
+          twitter: ''
+        }
+      }}
+    />
+
+    <FormSubmissionFeedback />
+  </div>
+)
 
 storiesOf('ControlledForm', module).add('default', () =>
   <div>
@@ -12,13 +43,11 @@ storiesOf('ControlledForm', module).add('default', () =>
 
     <ControlledForm
       onSubmit={values => {
-        window._output.innerHTML = JSON.stringify(values)
+        showFeedback(JSON.stringify(values))
       }}
     />
 
-    <p ref={el => (window._output = el)}>
-      <span style={{ color: '#ccc' }}>Submit form to see values here</span>
-    </p>
+    <FormSubmissionFeedback />
   </div>
 )
 
@@ -28,12 +57,10 @@ storiesOf('UncontrolledForm', module).add('default', () =>
 
     <UncontrolledForm
       onSubmit={values => {
-        window._output.innerHTML = JSON.stringify(values)
+        showFeedback(JSON.stringify(values))
       }}
     />
 
-    <p ref={el => (window._output = el)}>
-      <span style={{ color: '#ccc' }}>Submit form to see values here</span>
-    </p>
+    <FormSubmissionFeedback />
   </div>
 )
