@@ -18,18 +18,19 @@ const FormSubmissionFeedback = () =>
 storiesOf('ValidatingForm', module).add('default', () =>
   <div>
     <p>A form validated with Formik</p>
+    <p>
+      In this silly example, a <b>title</b> is required and a <b>medium</b> must have between 5-10
+      characters
+    </p>
 
     <ValidatingForm
       onSubmit={payload => {
         showFeedback(JSON.stringify(payload))
       }}
-      user={{
+      artwork={{
         id: '123',
-        email: 'foo@barcom',
-        social: {
-          facebook: '',
-          twitter: ''
-        }
+        title: 'Such painting',
+        medium: 'Very brush'
       }}
     />
 

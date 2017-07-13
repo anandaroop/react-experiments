@@ -1,27 +1,23 @@
 import React from 'react'
 import { Formik } from 'formik'
 import Yup from 'yup'
+import styled from 'styled-components'
 
 const withFormik = Formik({
   validationSchema: Yup.object().shape({
-    email: Yup.string().email().required(),
-    twitter: Yup.string(),
-    facebook: Yup.string()
+    title: Yup.string().required(),
+    medium: Yup.string().required().min(5).max(10)
   }),
 
   mapPropsToValues: props => ({
-    email: props.user.email,
-    twitter: props.user.social.twitter,
-    facebook: props.user.social.facebook
+    title: props.artwork.title,
+    medium: props.artwork.medium
   }),
 
   mapValuesToPayload: values => ({
-    user: {
-      email: values.email,
-      social: {
-        twitter: values.twitter,
-        facebook: values.facebook
-      }
+    artwork: {
+      title: values.title,
+      medium: values.medium
     }
   }),
 
@@ -38,61 +34,55 @@ const MyForm = ({
   handleChange,
   handleSubmit,
   handleBlur,
-  handleReset,
   isSubmitting
 }) =>
   <form onSubmit={handleSubmit}>
-    <fieldset>
-      <input
-        type="text"
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
-      {errors.email &&
-        touched.email &&
-        <div>
-          {errors.email}
-        </div>}
-    </fieldset>
-    <fieldset>
-      <input
-        type="text"
-        name="facebook"
-        value={values.facebook}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
-      {errors.facebook &&
-        touched.facebook &&
-        <div>
-          {errors.facebook}
-        </div>}
-    </fieldset>
-    <fieldset>
-      <input
-        type="text"
-        name="twitter"
-        value={values.twitter}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
-      {errors.twitter &&
-        touched.twitter &&
-        <div>
-          {errors.twitter}
-        </div>}
-    </fieldset>
     {error &&
       error.message &&
       <div style={{ color: 'red' }}>
         Top Level Error: {error.message}
       </div>}
-    <button onClick={handleReset}>Reset</button>
-    <button type="submit" disabled={isSubmitting}>
-      Submit
-    </button>
+
+    <fieldset>
+      <label htmlFor="title">Title</label>
+      <input
+        id="title"
+        type="text"
+        name="title"
+        value={values.title}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {errors.title &&
+        touched.title &&
+        <Error>
+          {errors.title}
+        </Error>}
+    </fieldset>
+
+    <fieldset>
+      <label htmlFor="medium">Medium</label>
+      <input
+        id="medium"
+        type="text"
+        name="medium"
+        value={values.medium}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {errors.medium &&
+        touched.medium &&
+        <Error>
+          {errors.medium}
+        </Error>}
+    </fieldset>
+
+    <input type="submit" disabled={isSubmitting} />
   </form>
 
 export default withFormik(MyForm)
+
+const Error = styled.div`
+  color: red;
+  font-size: small;
+`
