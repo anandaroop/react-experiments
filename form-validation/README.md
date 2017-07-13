@@ -1,6 +1,6 @@
 # Form Validation
 
-This is an sandbox for trying out client-side form validation techniques with React.
+This is a sandbox for trying out client-side form validation techniques with React.
 
 [View the Storybook](https://anandaroop.github.io/react-experiments/storybooks/form-validation/)
 
