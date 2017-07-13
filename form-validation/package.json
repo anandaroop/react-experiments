@@ -19,6 +19,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public -o ../docs/storybooks/form-validation"
+    "build-storybook": "build-storybook -s public -o ../docs/storybooks/form-validation",
+    "update-storybook": "git add .. && git commit -a -m 'Update storybook'"
   }
 }
