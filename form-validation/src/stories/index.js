@@ -54,7 +54,7 @@ storiesOf('ValidatingForm', module)
     />
   )
 
-storiesOf('ControlledForm', module).add('default', () =>
+storiesOf('ControlledForm', module).add('Default', () =>
   <div>
     <p>A controlled form</p>
 
@@ -68,7 +68,7 @@ storiesOf('ControlledForm', module).add('default', () =>
   </div>
 )
 
-storiesOf('UncontrolledForm', module).add('default', () =>
+storiesOf('UncontrolledForm', module).add('Default', () =>
   <div>
     <p>An uncontrolled, dumb little form component</p>
 
