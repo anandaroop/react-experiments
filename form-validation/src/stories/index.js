@@ -15,14 +15,21 @@ const FormSubmissionFeedback = () =>
   </p>
 
 // the stories
-storiesOf('ValidatingForm', module).add('default', () =>
-  <div>
-    <p>A form validated with Formik</p>
-    <p>
-      In this silly example, a <b>title</b> is required and a <b>medium</b> must have between 5-10
-      characters
-    </p>
+storiesOf('ValidatingForm', module)
+  .addDecorator(story =>
+    <div>
+      <p>A form validated with Formik</p>
+      <p>
+        In this silly example, a <b>title</b> is required and a <b>medium</b> must have between 5-10
+        characters
+      </p>
 
+      {story()}
+
+      <FormSubmissionFeedback />
+    </div>
+  )
+  .add('with valid values', () =>
     <ValidatingForm
       onSubmit={payload => {
         showFeedback(JSON.stringify(payload))
@@ -33,10 +40,19 @@ storiesOf('ValidatingForm', module).add('default', () =>
         medium: 'Very brush'
       }}
     />
-
-    <FormSubmissionFeedback />
-  </div>
-)
+  )
+  .add('with invalid values', () =>
+    <ValidatingForm
+      onSubmit={payload => {
+        showFeedback(JSON.stringify(payload))
+      }}
+      artwork={{
+        id: '123',
+        title: '',
+        medium: 'Very watercolor'
+      }}
+    />
+  )
 
 storiesOf('ControlledForm', module).add('default', () =>
   <div>
