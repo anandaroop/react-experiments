@@ -36,7 +36,8 @@ storiesOf('ConditionalForm', module)
       artwork={{
         id: '123',
         title: 'Such painting',
-        medium: 'Sculpture'
+        medium: 'Sculpture',
+        manufacturer: 'Acme Corp'
       }}
     />
   )

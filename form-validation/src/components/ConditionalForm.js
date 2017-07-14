@@ -2,23 +2,26 @@ import React from 'react'
 import { Formik } from 'formik'
 import Yup from 'yup'
 import styled from 'styled-components'
-import mediumTypes from './mediumTypes'
+import mediumTypes, { allowsManufacturer } from './mediumTypes'
 
 const withFormik = Formik({
   validationSchema: Yup.object().shape({
     title: Yup.string().required(),
-    medium: Yup.string().required()
+    medium: Yup.string().required(),
+    manufacturer: Yup.string()
   }),
 
   mapPropsToValues: props => ({
     title: props.artwork.title,
-    medium: props.artwork.medium
+    medium: props.artwork.medium,
+    manufacturer: props.artwork.manufacturer
   }),
 
   mapValuesToPayload: values => ({
     artwork: {
       title: values.title,
-      medium: values.medium
+      medium: values.medium,
+      manufacturer: values.manufacturer
     }
   }),
 
@@ -83,6 +86,24 @@ const MyForm = ({
           {errors.medium}
         </Error>}
     </fieldset>
+
+    {allowsManufacturer(values.medium) &&
+      <fieldset>
+        <label htmlFor="manufacturer">Manufacturer</label>
+        <input
+          id="manufacturer"
+          type="text"
+          name="manufacturer"
+          value={values.manufacturer}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {errors.manufacturer &&
+          touched.manufacturer &&
+          <Error>
+            {errors.manufacturer}
+          </Error>}
+      </fieldset>}
 
     <input type="submit" disabled={isSubmitting} />
   </form>
