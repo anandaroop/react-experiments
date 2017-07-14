@@ -6,6 +6,7 @@ import './volt.css'
 import UncontrolledForm from '../components/UncontrolledForm'
 import ControlledForm from '../components/ControlledForm'
 import ValidatingForm from '../components/ValidatingForm'
+import ConditionalForm from '../components/ConditionalForm'
 
 // helpers to display the results of form submission
 const showFeedback = message => (window._FormSubmissionFeedback.innerHTML = message)
@@ -15,6 +16,30 @@ const FormSubmissionFeedback = () =>
   </p>
 
 // the stories
+
+storiesOf('ConditionalForm', module)
+  .addDecorator(story =>
+    <div>
+      <p>A form that shapeshifts depending on its various inputs' state</p>
+
+      {story()}
+
+      <FormSubmissionFeedback />
+    </div>
+  )
+  .add('with valid values', () =>
+    <ConditionalForm
+      onSubmit={payload => {
+        console.log(payload)
+        showFeedback(JSON.stringify(payload))
+      }}
+      artwork={{
+        id: '123',
+        title: 'Such painting',
+        medium: 'Sculpture'
+      }}
+    />
+  )
 storiesOf('ValidatingForm', module)
   .addDecorator(story =>
     <div>
