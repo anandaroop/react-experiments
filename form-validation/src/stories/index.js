@@ -37,7 +37,9 @@ storiesOf('ConditionalForm', module)
         id: '123',
         title: 'Such painting',
         medium: 'Sculpture',
-        manufacturer: 'Acme Corp'
+        manufacturer: 'Acme Corp',
+        publisher: '',
+        unique: true
       }}
     />
   )

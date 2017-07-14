@@ -2,26 +2,32 @@ import React from 'react'
 import { Formik } from 'formik'
 import Yup from 'yup'
 import styled from 'styled-components'
-import mediumTypes, { allowsManufacturer } from './mediumTypes'
+import mediumTypes, { allowsManufacturer, allowsPublisher, allowsUnique } from './mediumTypes'
 
 const withFormik = Formik({
   validationSchema: Yup.object().shape({
     title: Yup.string().required(),
     medium: Yup.string().required(),
-    manufacturer: Yup.string()
+    manufacturer: Yup.string(),
+    publisher: Yup.string(),
+    unique: Yup.boolean()
   }),
 
   mapPropsToValues: props => ({
     title: props.artwork.title,
     medium: props.artwork.medium,
-    manufacturer: props.artwork.manufacturer
+    manufacturer: props.artwork.manufacturer,
+    publisher: props.artwork.publisher,
+    unique: props.artwork.unique
   }),
 
   mapValuesToPayload: values => ({
     artwork: {
       title: values.title,
       medium: values.medium,
-      manufacturer: allowsManufacturer(values.medium) ? values.manufacturer : null
+      manufacturer: allowsManufacturer(values.medium) ? values.manufacturer : null,
+      publisher: allowsPublisher(values.medium) ? values.publisher : null,
+      unique: allowsUnique(values.medium) ? values.unique : null
     }
   }),
 
@@ -102,6 +108,42 @@ const MyForm = ({
           touched.manufacturer &&
           <Error>
             {errors.manufacturer}
+          </Error>}
+      </fieldset>}
+
+    {allowsPublisher(values.medium) &&
+      <fieldset>
+        <label htmlFor="publisher">Publisher</label>
+        <input
+          id="publisher"
+          type="text"
+          name="publisher"
+          value={values.publisher}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {errors.publisher &&
+          touched.publisher &&
+          <Error>
+            {errors.publisher}
+          </Error>}
+      </fieldset>}
+
+    {allowsUnique(values.medium) &&
+      <fieldset>
+        <label htmlFor="unique">Unique</label>
+        <input
+          id="unique"
+          type="checkbox"
+          name="unique"
+          checked={values.unique}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {errors.unique &&
+          touched.unique &&
+          <Error>
+            {errors.unique}
           </Error>}
       </fieldset>}
 
