@@ -21,7 +21,7 @@ const withFormik = Formik({
     artwork: {
       title: values.title,
       medium: values.medium,
-      manufacturer: values.manufacturer
+      manufacturer: allowsManufacturer(values.medium) ? values.manufacturer : null
     }
   }),
 
