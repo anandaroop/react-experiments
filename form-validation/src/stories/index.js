@@ -35,13 +35,52 @@ storiesOf('ConditionalForm', module)
       }}
       artwork={{
         id: '123',
-        title: 'Such painting',
+        title: 'Such sculpture',
         medium: 'Sculpture',
         manufacturer: 'Acme Corp',
         publisher: '',
         unique: true
       }}
     />
+  )
+  .add('with blank values', () =>
+    <ConditionalForm
+      onSubmit={payload => {
+        console.log(payload)
+        showFeedback(JSON.stringify(payload))
+      }}
+      artwork={{
+        id: '123',
+        title: '',
+        medium: '',
+        manufacturer: '',
+        publisher: '',
+        unique: false
+      }}
+    />
+  )
+  .add('with strippable values', () =>
+    <div>
+      <p>
+        Choose e.g. <b>Architecture</b> before submitting to see disallowed values stripped from the
+        form submission
+      </p>
+
+      <ConditionalForm
+        onSubmit={payload => {
+          console.log(payload)
+          showFeedback(JSON.stringify(payload))
+        }}
+        artwork={{
+          id: '123',
+          title: 'Such sculpture',
+          medium: 'Sculpture',
+          manufacturer: 'Not valid with every medium',
+          publisher: 'Not valid with every medium',
+          unique: true
+        }}
+      />
+    </div>
   )
 storiesOf('ValidatingForm', module)
   .addDecorator(story =>
