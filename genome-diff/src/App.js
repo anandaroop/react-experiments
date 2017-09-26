@@ -8,11 +8,31 @@ class App extends Component {
   constructor(props) {
     super(props)
     const { description, changes } = data
+    const sortedChanges = _.sortBy(changes, c => c.timestamp)
     this.state = {
       description,
-      changes,
+      changes: sortedChanges,
       currentIndex: 0
     }
+    this.previous = this.previous.bind(this)
+    this.next = this.next.bind(this)
+  }
+
+  previous(e) {
+    e.preventDefault()
+    this.setState({
+      currentIndex: Math.max(this.state.currentIndex - 1, 0)
+    })
+  }
+
+  next(e) {
+    e.preventDefault()
+    this.setState({
+      currentIndex: Math.min(
+        this.state.currentIndex + 1,
+        this.state.changes.length - 1
+      )
+    })
   }
 
   render() {
@@ -21,6 +41,16 @@ class App extends Component {
     return (
       <div className="App">
         <p>{description}</p>
+        <div>
+          <a href="#" onClick={this.previous}>
+            prev
+          </a>
+          |
+          <a href="#" onClick={this.next}>
+            next
+          </a>
+        </div>
+
         <Change {...currentChange} />
       </div>
     )
@@ -28,7 +58,9 @@ class App extends Component {
 }
 
 const Change = ({ timestamp, before, after }) => {
-  const allGeneNames = Object.keys(Object.assign({}, before.genes, after.genes)).sort()
+  const allGeneNames = Object.keys(
+    Object.assign({}, before.genes, after.genes)
+  ).sort()
   return (
     <div>
       <Timestamp>{timestamp}</Timestamp>
@@ -43,7 +75,7 @@ const Change = ({ timestamp, before, after }) => {
 const Genome = ({ className, allGeneNames, genes }) => {
   console.log(allGeneNames, _.keys(genes))
   return (
-    <div className={className}>
+    <table width="50%" className={className}>
       {allGeneNames.map(name => {
         return _.has(genes, name) ? (
           <Gene key={Math.random()} name={name} value={genes[name]} />
@@ -51,20 +83,20 @@ const Genome = ({ className, allGeneNames, genes }) => {
           <Blank />
         )
       })}
-    </div>
+    </table>
   )
 }
 
 const Gene = ({ name, value }) => (
-  <div>
-    {name}
-    {value}
-  </div>
+  <tr>
+    <td style={{ textAlign: 'right', paddingRight: '0.25em' }}>{value}</td>
+    <td>{name}</td>
+  </tr>
 )
 
 const Blank = styled.div`
-min-height: 1em;
-background: #eee;
+  min-height: 1em;
+  background: #eee;
 `
 
 const Timestamp = styled.div`
