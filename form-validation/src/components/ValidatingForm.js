@@ -1,12 +1,15 @@
 import React from 'react'
-import { Formik } from 'formik'
+import { withFormik } from 'formik'
 import Yup from 'yup'
 import styled from 'styled-components'
 
-const withFormik = Formik({
+const enhance = withFormik({
   validationSchema: Yup.object().shape({
     title: Yup.string().required(),
-    medium: Yup.string().required().min(5).max(10)
+    medium: Yup.string()
+      .required()
+      .min(5)
+      .max(10)
   }),
 
   mapPropsToValues: props => ({
@@ -35,13 +38,12 @@ const MyForm = ({
   handleSubmit,
   handleBlur,
   isSubmitting
-}) =>
+}) => (
   <form onSubmit={handleSubmit}>
     {error &&
-      error.message &&
-      <div style={{ color: 'red' }}>
-        Top Level Error: {error.message}
-      </div>}
+      error.message && (
+        <div style={{ color: 'red' }}>Top Level Error: {error.message}</div>
+      )}
 
     <fieldset>
       <label htmlFor="title">Title</label>
@@ -53,11 +55,7 @@ const MyForm = ({
         onChange={handleChange}
         onBlur={handleBlur}
       />
-      {errors.title &&
-        touched.title &&
-        <Error>
-          {errors.title}
-        </Error>}
+      {errors.title && touched.title && <Error>{errors.title}</Error>}
     </fieldset>
 
     <fieldset>
@@ -70,17 +68,14 @@ const MyForm = ({
         onChange={handleChange}
         onBlur={handleBlur}
       />
-      {errors.medium &&
-        touched.medium &&
-        <Error>
-          {errors.medium}
-        </Error>}
+      {errors.medium && touched.medium && <Error>{errors.medium}</Error>}
     </fieldset>
 
     <input type="submit" disabled={isSubmitting} />
   </form>
+)
 
-export default withFormik(MyForm)
+export default enhance(MyForm)
 
 const Error = styled.div`
   color: red;

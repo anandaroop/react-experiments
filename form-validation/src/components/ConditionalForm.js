@@ -1,10 +1,14 @@
 import React from 'react'
-import { Formik } from 'formik'
+import { withFormik } from 'formik'
 import Yup from 'yup'
 import styled from 'styled-components'
-import mediumTypes, { allowsManufacturer, allowsPublisher, allowsUnique } from './mediumTypes'
+import mediumTypes, {
+  allowsManufacturer,
+  allowsPublisher,
+  allowsUnique
+} from './mediumTypes'
 
-const withFormik = Formik({
+const enhance = withFormik({
   validationSchema: Yup.object().shape({
     title: Yup.string().required(),
     medium: Yup.string().required(),
@@ -25,7 +29,9 @@ const withFormik = Formik({
     artwork: {
       title: values.title,
       medium: values.medium,
-      manufacturer: allowsManufacturer(values.medium) ? values.manufacturer : null,
+      manufacturer: allowsManufacturer(values.medium)
+        ? values.manufacturer
+        : null,
       publisher: allowsPublisher(values.medium) ? values.publisher : null,
       unique: allowsUnique(values.medium) ? values.unique : null
     }
@@ -45,13 +51,12 @@ const MyForm = ({
   handleSubmit,
   handleBlur,
   isSubmitting
-}) =>
+}) => (
   <form onSubmit={handleSubmit}>
     {error &&
-      error.message &&
-      <div style={{ color: 'red' }}>
-        Top Level Error: {error.message}
-      </div>}
+      error.message && (
+        <div style={{ color: 'red' }}>Top Level Error: {error.message}</div>
+      )}
 
     <fieldset>
       <label htmlFor="title">Title</label>
@@ -63,11 +68,7 @@ const MyForm = ({
         onChange={handleChange}
         onBlur={handleBlur}
       />
-      {errors.title &&
-        touched.title &&
-        <Error>
-          {errors.title}
-        </Error>}
+      {errors.title && touched.title && <Error>{errors.title}</Error>}
     </fieldset>
 
     <fieldset>
@@ -80,20 +81,12 @@ const MyForm = ({
         value={values.medium}
       >
         <option value="" />
-        {mediumTypes.map(t =>
-          <option key={t}>
-            {t}
-          </option>
-        )}
+        {mediumTypes.map(t => <option key={t}>{t}</option>)}
       </select>
-      {errors.medium &&
-        touched.medium &&
-        <Error>
-          {errors.medium}
-        </Error>}
+      {errors.medium && touched.medium && <Error>{errors.medium}</Error>}
     </fieldset>
 
-    {allowsManufacturer(values.medium) &&
+    {allowsManufacturer(values.medium) && (
       <fieldset>
         <label htmlFor="manufacturer">Manufacturer</label>
         <input
@@ -105,13 +98,11 @@ const MyForm = ({
           onBlur={handleBlur}
         />
         {errors.manufacturer &&
-          touched.manufacturer &&
-          <Error>
-            {errors.manufacturer}
-          </Error>}
-      </fieldset>}
+          touched.manufacturer && <Error>{errors.manufacturer}</Error>}
+      </fieldset>
+    )}
 
-    {allowsPublisher(values.medium) &&
+    {allowsPublisher(values.medium) && (
       <fieldset>
         <label htmlFor="publisher">Publisher</label>
         <input
@@ -123,13 +114,11 @@ const MyForm = ({
           onBlur={handleBlur}
         />
         {errors.publisher &&
-          touched.publisher &&
-          <Error>
-            {errors.publisher}
-          </Error>}
-      </fieldset>}
+          touched.publisher && <Error>{errors.publisher}</Error>}
+      </fieldset>
+    )}
 
-    {allowsUnique(values.medium) &&
+    {allowsUnique(values.medium) && (
       <fieldset>
         <label htmlFor="unique">Unique</label>
         <input
@@ -140,17 +129,15 @@ const MyForm = ({
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {errors.unique &&
-          touched.unique &&
-          <Error>
-            {errors.unique}
-          </Error>}
-      </fieldset>}
+        {errors.unique && touched.unique && <Error>{errors.unique}</Error>}
+      </fieldset>
+    )}
 
     <input type="submit" disabled={isSubmitting} />
   </form>
+)
 
-export default withFormik(MyForm)
+export default enhance(MyForm)
 
 const Error = styled.div`
   color: red;
