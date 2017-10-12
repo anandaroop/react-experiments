@@ -9,9 +9,11 @@ fieldset {
 label {
   display: inline-block;
   width: 20%;
+  vertical-align: top;
 }
 
-input[type~="text"] {
+input[type~='text'],
+div.inputs {
   display: inline-block;
   width: 80%;
 }
